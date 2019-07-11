@@ -342,7 +342,7 @@ class User extends User\UserRole
                 // check roles
                 foreach ($this->getRoles() as $roleId) {
                     $role = User\Role::getById($roleId);
-                    if ($role->getPermission($key)) {
+                    if ($role instanceof User\UserRole && $role->getPermission($key)) {
                         return true;
                     }
                 }
@@ -353,7 +353,9 @@ class User extends User\UserRole
             $classes = $this->getClasses();
             foreach ($this->getRoles() as $roleId) {
                 $role = User\Role::getById($roleId);
-                $classes = array_merge($classes, $role->getClasses());
+                if ($role instanceof User\UserRole) {
+                    $classes = array_merge($classes, $role->getClasses());
+                }
             }
 
             if (!empty($classes)) {
@@ -365,7 +367,9 @@ class User extends User\UserRole
             $docTypes = $this->getDocTypes();
             foreach ($this->getRoles() as $roleId) {
                 $role = User\Role::getById($roleId);
-                $docTypes = array_merge($docTypes, $role->getDocTypes());
+                if ($role instanceof User\UserRole) {
+                    $docTypes = array_merge($docTypes, $role->getDocTypes());
+                }
             }
 
             if (!empty($docTypes)) {
@@ -635,7 +639,9 @@ class User extends User\UserRole
             foreach ($this->getRoles() as $role) {
                 /** @var User\UserRole $userRole */
                 $userRole = User\UserRole::getById($role);
-                $this->mergedPerspectives = array_merge($this->mergedPerspectives, $userRole->getPerspectives());
+                if ($userRole instanceof User\UserRole) {
+                    $this->mergedPerspectives = array_merge($this->mergedPerspectives, $userRole->getPerspectives());
+                }
             }
             $this->mergedPerspectives = array_values($this->mergedPerspectives);
             if (!$this->mergedPerspectives) {
@@ -680,7 +686,9 @@ class User extends User\UserRole
             foreach ($this->getRoles() as $role) {
                 /** @var User\UserRole $userRole */
                 $userRole = User\UserRole::getById($role);
-                $this->mergedWebsiteTranslationLanguagesEdit = array_merge($this->mergedWebsiteTranslationLanguagesEdit, $userRole->getWebsiteTranslationLanguagesEdit());
+                if ($userRole instanceof User\UserRole) {
+                    $this->mergedWebsiteTranslationLanguagesEdit = array_merge($this->mergedWebsiteTranslationLanguagesEdit, $userRole->getWebsiteTranslationLanguagesEdit());
+                }
             }
             $this->mergedWebsiteTranslationLanguagesEdit = array_values($this->mergedWebsiteTranslationLanguagesEdit);
         }
@@ -721,7 +729,9 @@ class User extends User\UserRole
             foreach ($this->getRoles() as $role) {
                 /** @var User\UserRole $userRole */
                 $userRole = User\UserRole::getById($role);
-                $this->mergedWebsiteTranslationLanguagesView = array_merge($this->mergedWebsiteTranslationLanguagesView, $userRole->getWebsiteTranslationLanguagesView());
+                if ($userRole instanceof User\UserRole) {
+                    $this->mergedWebsiteTranslationLanguagesView = array_merge($this->mergedWebsiteTranslationLanguagesView, $userRole->getWebsiteTranslationLanguagesView());
+                }
             }
             $this->mergedWebsiteTranslationLanguagesView = array_values($this->mergedWebsiteTranslationLanguagesView);
         }
