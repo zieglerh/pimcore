@@ -342,7 +342,7 @@ class User extends User\UserRole
                 // check roles
                 foreach ($this->getRoles() as $roleId) {
                     $role = User\Role::getById($roleId);
-                    if ($role instanceof User\UserRole && $role->getPermission($key)) {
+                    if (!empty($role) && $role->getPermission($key)) {
                         return true;
                     }
                 }
@@ -353,7 +353,7 @@ class User extends User\UserRole
             $classes = $this->getClasses();
             foreach ($this->getRoles() as $roleId) {
                 $role = User\Role::getById($roleId);
-                if ($role instanceof User\UserRole) {
+                if (!empty($role)) {
                     $classes = array_merge($classes, $role->getClasses());
                 }
             }
@@ -367,7 +367,7 @@ class User extends User\UserRole
             $docTypes = $this->getDocTypes();
             foreach ($this->getRoles() as $roleId) {
                 $role = User\Role::getById($roleId);
-                if ($role instanceof User\UserRole) {
+                if (!empty($role)) {
                     $docTypes = array_merge($docTypes, $role->getDocTypes());
                 }
             }
@@ -639,7 +639,7 @@ class User extends User\UserRole
             foreach ($this->getRoles() as $role) {
                 /** @var User\UserRole $userRole */
                 $userRole = User\UserRole::getById($role);
-                if ($userRole instanceof User\UserRole) {
+                if (!empty($userRole)) {
                     $this->mergedPerspectives = array_merge($this->mergedPerspectives, $userRole->getPerspectives());
                 }
             }
@@ -686,7 +686,7 @@ class User extends User\UserRole
             foreach ($this->getRoles() as $role) {
                 /** @var User\UserRole $userRole */
                 $userRole = User\UserRole::getById($role);
-                if ($userRole instanceof User\UserRole) {
+                if (!empty($userRole)) {
                     $this->mergedWebsiteTranslationLanguagesEdit = array_merge($this->mergedWebsiteTranslationLanguagesEdit, $userRole->getWebsiteTranslationLanguagesEdit());
                 }
             }
@@ -729,7 +729,7 @@ class User extends User\UserRole
             foreach ($this->getRoles() as $role) {
                 /** @var User\UserRole $userRole */
                 $userRole = User\UserRole::getById($role);
-                if ($userRole instanceof User\UserRole) {
+                if (!empty($userRole)) {
                     $this->mergedWebsiteTranslationLanguagesView = array_merge($this->mergedWebsiteTranslationLanguagesView, $userRole->getWebsiteTranslationLanguagesView());
                 }
             }
